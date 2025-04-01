@@ -10,8 +10,9 @@ app.use(cors());
 // Conexión a PostgreSQL (Railway)
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }
+    ssl: { rejectUnauthorized: false } // Forzar uso de SSL
 });
+
 
 
 //Endpoint para ver la tabla alumnos
