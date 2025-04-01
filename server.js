@@ -32,9 +32,10 @@ app.get('/verificar-codigo/:codigo', async (req, res) => {
 
 // Usar el puerto que asigna Railway
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en: http://localhost:${PORT} (si es local)`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
+
 
 
 
