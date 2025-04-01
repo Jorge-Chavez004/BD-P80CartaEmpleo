@@ -7,14 +7,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Conexión a PostgreSQL
+// Conexión a PostgreSQL (Railway)
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false // Necesario para Railway
-    }
+    ssl: process.env.DATABASE_URL.includes("railway.app") ? { rejectUnauthorized: false } : false
 });
-
 
 // Endpoint para verificar el código
 app.get('/verificar-codigo/:codigo', async (req, res) => {
@@ -32,9 +29,10 @@ app.get('/verificar-codigo/:codigo', async (req, res) => {
     }
 });
 
-// Levantar servidor
+// Usar el puerto que asigna Railway
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
+
 
