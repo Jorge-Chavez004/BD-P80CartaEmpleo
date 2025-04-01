@@ -14,6 +14,19 @@ const pool = new Pool({
 });
 
 
+//Endpoint para ver la tabla alumnos
+app.get('/alumnos', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM Alumno');
+        res.json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener los alumnos' });
+    }
+});
+
+
+
 // Endpoint para verificar el código
 app.get('/verificar-codigo/:codigo', async (req, res) => {
     const { codigo } = req.params;
