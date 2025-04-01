@@ -10,7 +10,11 @@ app.use(cors());
 // Conexión a PostgreSQL
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false // Necesario para Railway
+    }
 });
+
 
 // Endpoint para verificar el código
 app.get('/verificar-codigo/:codigo', async (req, res) => {
