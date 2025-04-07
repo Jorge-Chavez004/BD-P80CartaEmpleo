@@ -10,8 +10,9 @@ app.use(cors());
 // Conexión a PostgreSQL (Railway)
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false } // Forzar uso de SSL
+    ssl: { rejectUnauthorized: false }  // Asegura que Render pueda conectar sin problemas
 });
+
 
 
 
