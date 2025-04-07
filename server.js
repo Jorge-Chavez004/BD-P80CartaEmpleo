@@ -53,10 +53,10 @@ app.get('/buscar-titulos/:titulo', async (req, res) => {
         const result = await pool.query(
             `SELECT titulo_investigacion 
              FROM Titulos 
-             WHERE titulo_investigacion ILIKE '%' || $1 || '%', 
-             `
+             WHERE titulo_investigacion ILIKE '%' || $1 || '%'`, 
             [titulo]
         );
+        
         res.json({ titulos_similares: result.rows });
     } catch (error) {
         console.error('Error al buscar títulos similares:', error);
