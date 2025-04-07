@@ -47,30 +47,25 @@ app.get('/verificar-codigo/:codigo', async (req, res) => {
 
 
 // Endpoint para buscar títulos similares
-app.get('/buscar-titulos', async (req, res) => {
-    const { titulo } = req.query;
-
-    if (!titulo || titulo.trim() === "") {
-        return res.status(400).json({ error: "Falta el parámetro 'titulo'" });
-    }
+app.get('/buscar-titulos/:titulo', async (req, res) => {
+    const { titulo } = req.params;
 
     try {
-        const query = `
-            SELECT *
-            FROM Alumno
-            WHERE LOWER(titulo) LIKE LOWER($1)
-            LIMIT 10;
-        `;
+        // Busca títulos que contengan palabras similares
+        const result = await pool.query(
+            `SELECT titulo_investigacion 
+             FROM Alumno 
+             WHERE titulo_investigacion ILIKE $1`, 
+            [`%${titulo}%`]
+        );
 
-        const valores = [`%${titulo}%`]; // para buscar coincidencias parciales
-        const resultado = await pool.query(query, valores);
-
-        res.json({ coincidencias: resultado.rows });
+        res.json({ titulos_similares: result.rows });
     } catch (error) {
-        console.error("Error al buscar títulos similares:", error);
-        res.status(500).json({ error: "Error al buscar los títulos similares" });
+        console.error(error);
+        res.status(500).json({ error: 'Error al buscar títulos similares' });
     }
 });
+
 
 
 // Usar el puerto que asigna Railway
