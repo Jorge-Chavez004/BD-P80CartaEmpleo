@@ -54,7 +54,7 @@ app.get('/buscar-titulos/:titulo', async (req, res) => {
             `SELECT titulo_investigacion 
              FROM Titulos 
              WHERE titulo_investigacion ILIKE '%' || $1 || '%', 
-            [titulo]
+            [titulo]`
         );
         res.json({ titulos_similares: result.rows });
     } catch (error) {
