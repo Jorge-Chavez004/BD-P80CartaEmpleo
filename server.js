@@ -49,19 +49,17 @@ app.get('/verificar-codigo/:codigo', async (req, res) => {
 // Endpoint para buscar títulos similares
 app.get('/buscar-titulos/:titulo', async (req, res) => {
     const { titulo } = req.params;
-
     try {
-        // Busca títulos que contengan palabras similares
         const result = await pool.query(
             `SELECT titulo_investigacion 
-             FROM Alumno 
-             WHERE titulo_investigacion ILIKE $1`, 
-            [`%${titulo}%`]
+             FROM Titulos 
+             WHERE titulo_investigacion ILIKE '%' || $1 || '%' 
+             LIMIT 10`, 
+            [titulo]
         );
-
         res.json({ titulos_similares: result.rows });
     } catch (error) {
-        console.error(error);
+        console.error('Error al buscar títulos similares:', error);
         res.status(500).json({ error: 'Error al buscar títulos similares' });
     }
 });
