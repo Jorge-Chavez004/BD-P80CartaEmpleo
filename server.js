@@ -28,6 +28,17 @@ app.get('/alumnos', async (req, res) => {
 });
 
 
+app.get('/investigaciones', async(req, res) => {
+    try{
+        const result = await pool.query('SELECT * FROM Investigacion');
+        res.json(result.rows);
+    } catch (error){
+        console.error(error);
+        res.status(500).json({error: 'Erro al obtener las investigaciones'})
+    }
+});
+
+
 
 // Endpoint para verificar el código
 app.get('/verificar-codigo/:codigo', async (req, res) => {
