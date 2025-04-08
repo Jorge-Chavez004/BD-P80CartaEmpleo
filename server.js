@@ -39,6 +39,25 @@ app.get('/investigaciones', async(req, res) => {
 });
 
 
+// GET /investigaciones/por-linea/:linea
+app.get('/investigaciones/por-linea/:linea', async (req, res) => {
+    const { linea } = req.params;
+
+    try {
+        const result = await pool.query(
+            'SELECT sublinea_investigacion FROM Investigacion WHERE lineas_investigacion = $1',
+            [linea]
+        );
+
+        res.json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al filtrar sublíneas' });
+    }
+});
+
+
+
 
 // Endpoint para verificar el código
 app.get('/verificar-codigo/:codigo', async (req, res) => {
