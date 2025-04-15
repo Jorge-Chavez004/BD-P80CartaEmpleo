@@ -96,6 +96,19 @@ app.get('/buscar-titulos/:titulo', async (req, res) => {
 
 
 
+app.get('/cursos/sistemas', async (req, res) => {
+    try {
+        const result = await pool.query(
+            `SELECT curso FROM Cursos WHERE id_carrera = 1`  // 1 = Ingeniería de Sistemas
+        );
+        res.json(result.rows); // [{curso: 'Estructura de Datos'}, ...]
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener los cursos de Sistemas' });
+    }
+});
+
+
 // Usar el puerto que asigna Railway
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
