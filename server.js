@@ -111,31 +111,6 @@ app.get('/cursos/sistemas', async (req, res) => {
 });
 
 
-
-
-router.get('/modalidades/:idCarrera', async (req, res) => {
-    const idCarrera = parseInt(req.params.idCarrera);
-  
-    try {
-      const modalidades = await Modalidad.findAll({
-        where: {
-          id_carrera: idCarrera,
-          activo: true
-        }
-      });
-  
-      if (modalidades.length === 0) {
-        return res.status(404).json({ mensaje: 'No se encontraron modalidades para esta carrera.' });
-      }
-  
-      res.json(modalidades);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Error al obtener modalidades.' });
-    }
-  });
-
-
 // Usar el puerto que asigna Railway
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
