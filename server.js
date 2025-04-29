@@ -108,7 +108,7 @@ app.get('/cursos/sistemas', async (req, res) => {
     }
 });
 
-router.get('/modalidades/:idCarrera', async (req, res) => {
+app.get('/modalidades/:idCarrera', async (req, res) => {
   const idCarrera = parseInt(req.params.idCarrera);
 
   try {
