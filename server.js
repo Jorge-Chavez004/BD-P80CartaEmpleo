@@ -28,15 +28,22 @@ app.get('/alumnos', async (req, res) => {
 });
 
 
-app.get('/investigaciones', async(req, res) => {
-    try{
-        const result = await pool.query('SELECT * FROM Investigacion');
+app.get('/investigaciones/:carrera', async (req, res) => {
+    const { carrera } = req.params;
+
+    try {
+        const result = await pool.query(
+            'SELECT * FROM Investigacion WHERE carrera = $1',
+            [carrera]
+        );
+        
         res.json(result.rows);
-    } catch (error){
+    } catch (error) {
         console.error(error);
-        res.status(500).json({error: 'Erro al obtener las investigaciones'})
+        res.status(500).json({ error: 'Error al obtener las investigaciones por carrera' });
     }
 });
+
 
 
 // GET /investigaciones/por-linea/:linea
