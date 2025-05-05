@@ -19,7 +19,7 @@ const pool = new Pool({
 //Endpoint para ver la tabla alumnos
 app.get('/alumnos', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM Alumno');
+        const result = await pool.query('SELECT * FROM alumnos');
         res.json(result.rows);
     } catch (error) {
         console.error(error);
@@ -63,7 +63,7 @@ app.get('/investigaciones/por-linea/:linea', async (req, res) => {
 app.get('/verificar-codigo/:codigo', async (req, res) => {
     const { codigo } = req.params;
     try {
-        const result = await pool.query('SELECT * FROM Alumno WHERE codigo = $1', [codigo]);
+        const result = await pool.query('SELECT * FROM alumnos WHERE codigo = $1', [codigo]);
         if (result.rows.length > 0) {
             res.json({ existe: true, alumno: result.rows[0] });
         } else {
@@ -99,7 +99,7 @@ app.get('/buscar-titulos/:titulo', async (req, res) => {
 app.get('/cursos/sistemas', async (req, res) => {
     try {
         const result = await pool.query(
-            `SELECT curso, seccion FROM Cursos WHERE id_carrera = 1  // 1 = Ingeniería de Sistemas`
+            `SELECT curso, seccion FROM cursos WHERE id_carrera = 6500  // 1 = Ingeniería de Sistemas`
         );
         res.json(result.rows); // [{curso: 'Estructura de Datos'}, ...]
     } catch (error) {
