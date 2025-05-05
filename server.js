@@ -106,7 +106,7 @@ app.get('/buscar-titulos/:titulo', async (req, res) => {
 app.get('/cursos/sistemas', async (req, res) => {
     try {
         const result = await pool.query(
-            `SELECT curso, seccion FROM cursos WHERE id_carrera = 6500  // 1 = Ingeniería de Sistemas`
+            `SELECT curso, seccion FROM cursos WHERE id_carrera = 6500`
         );
         res.json(result.rows); // [{curso: 'Estructura de Datos'}, ...]
     } catch (error) {
