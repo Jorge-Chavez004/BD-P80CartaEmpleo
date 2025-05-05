@@ -33,7 +33,7 @@ app.get('/investigaciones/:carrera', async (req, res) => {
 
     try {
         const result = await pool.query(
-            'SELECT lineas_investigacion FROM Investigacion WHERE carrera = $1',
+            'SELECT * FROM Investigacion WHERE carrera = $1',
             [carrera]
         );
         
